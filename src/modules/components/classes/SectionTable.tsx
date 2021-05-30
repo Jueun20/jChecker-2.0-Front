@@ -214,8 +214,8 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
 
     useEffect(() => {
         const getGradingData = async () : Promise<GradingResultProps[]> => {
-            return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
-            // return await axios.get<GradingResultProps[]>('/api/grade/', {
+            // return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
+            return await axios.get<GradingResultProps[]>('/api/grade/', {
                 params: {
                     itoken: props.itoken
                 },
@@ -250,7 +250,6 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
-                        rowCount={dataGroup.length}
                         keyGroup={keyGroup}
                     />
                     <TableBody>

@@ -82,6 +82,7 @@
     "policy.io.2": "제출 코드를 실행하면서 검사할 케이스를 추가합니다.",
     "policy.io.input": "입력값",
     "policy.io.output": "출력값",
+    "policy.io.checksum": "파일 체크섬",
     "policy.javadoc.1": "자바독 설정",
     "policy.javadoc.2": "모든 public 필드, 메소드는 자바독이 작성되어야 합니다.",
     "policy.overloading.1": "오버로딩 검사",

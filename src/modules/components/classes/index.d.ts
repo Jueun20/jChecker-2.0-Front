@@ -31,7 +31,6 @@ export type Order = 'asc' | 'desc';
 export interface EnhancedTableProps {
     order: Order,
     orderBy: string,
-    rowCount: number,
     keyGroup: string[],
     onRequestSort: (event: React.MouseEvent<unknown>, property: keyof ResultKeyProps) => void,
 }

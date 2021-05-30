@@ -4,23 +4,25 @@ import { Button,
     DialogContent, 
     DialogContentText, 
     DialogTitle, 
+    Divider, 
     FormControl, 
     Grid, 
     IconButton, 
     makeStyles, 
-    TextField } from "@material-ui/core";
+    TextField, 
+    Tooltip} from "@material-ui/core";
 import React, { useEffect, useState } from "react"
 import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from "react-i18next";
 import { DialogRawProp } from ".";
-import { DeleteOutline } from "@material-ui/icons";
+import { DeleteOutline, SubdirectoryArrowRight } from "@material-ui/icons";
 
 
 const style = makeStyles({
     buttonRight: {
         float: 'right',
         position: 'relative',
-    }
+    },
 });
 
 
@@ -34,12 +36,14 @@ export default function OracleDialog(props: DialogRawProp) {
     const [fields, setFields] = useState(["io-0"]);
     const [outputData, setOutputData] = useState([""]);
     const [inputData, setInputData] = useState([""]);
+    const [checksumData, setChecksumData] = useState([""]);
     const [deduct, setDeduct] = useState(0);
     const [max_deduct, setMax_deduct] = useState(0);
     const [resOracle, setResOracle] = useState({
         state: false,
         input: [] as string[],
         output: [] as string[],
+        checksum: [] as string[],
         deductPoint : 0,
         maxDeduct: 0
     });
@@ -99,11 +103,19 @@ export default function OracleDialog(props: DialogRawProp) {
     }
 
 
+    const handleChecksumChange = (index : number) => (e : React.ChangeEvent<HTMLInputElement>) => {
+        let newArr = [...checksumData];
+        newArr[index] = e.target.value;
+        setChecksumData(newArr);
+    }
+
+
     const handleClose = () => {
         setResOracle({
             state: false,
             input: [],
             output: [],
+            checksum: [],
             deductPoint : 0,
             maxDeduct: 0
         })
@@ -116,6 +128,7 @@ export default function OracleDialog(props: DialogRawProp) {
             state: true,
             input: inputData,
             output: outputData,
+            checksum: checksumData,
             deductPoint : deduct,
             maxDeduct: max_deduct
         })
@@ -168,6 +181,7 @@ export default function OracleDialog(props: DialogRawProp) {
             </Grid>
 
             {fields.map((input, index) => (
+                <>
                 <Grid container spacing={1} key={index} alignItems="center" justify="center">
                     <Grid xs item>
                         <FormControl fullWidth margin="normal">
@@ -203,6 +217,29 @@ export default function OracleDialog(props: DialogRawProp) {
                         </IconButton>
                     </Grid>
                 </Grid>
+                <Grid container alignItems="center" justify="center">
+                    <Tooltip title="파일 다루지 않으면 빈 칸으로">
+                        <IconButton>
+                            <SubdirectoryArrowRight />
+                        </IconButton>
+                    </Tooltip>
+                    <Grid xs item>
+                        <FormControl fullWidth margin="normal">
+                            <TextField
+                                value={checksumData[index] || ""}
+                                variant="outlined"
+                                id={"crc-" + index}
+                                label={t('policy.io.checksum')}
+                                name={"crc-" + index}
+                                className="crc"
+                                multiline
+                                onChange={handleChecksumChange(index)}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Divider />
+                </Grid>
+                </>
             ))}
             </DialogContent>
 

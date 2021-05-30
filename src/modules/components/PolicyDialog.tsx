@@ -163,11 +163,11 @@ export default function SelectCond(props: PolicyProps) {
     }
 
     
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setLoading(true);
 
-        axios.post("http://isel.lifove.net/api/token/save", JSON.stringify(policy, null, 2), {
-        // axios.post("/api/token/save", JSON.stringify(policy, null, 2), {    
+        // await axios.post("http://isel.lifove.net/api/token/save", JSON.stringify(policy, null, 2), {
+        axios.post("/api/token/save", JSON.stringify(policy, null, 2), {    
             headers: {"Content-Type": 'application/json'}
         }).then((res) => {
             setOpen(false);
