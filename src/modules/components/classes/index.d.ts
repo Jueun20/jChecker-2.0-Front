@@ -61,6 +61,8 @@ export interface GradingResultProps {
     } | undefined,
     oracle: {
         deductedPoint: number,
+        violationNumber: [],
+        checksumNumber: [],
     } | undefined,
     classes: {
         deductedPoint: number,

@@ -36,6 +36,7 @@ export default function OracleDialog(props: DialogRawProp) {
     const [fields, setFields] = useState(["io-0"]);
     const [outputData, setOutputData] = useState([""]);
     const [inputData, setInputData] = useState([""]);
+    const [filePathData, setfilePathData] = useState([""]);
     const [checksumData, setChecksumData] = useState([""]);
     const [deduct, setDeduct] = useState(0);
     const [max_deduct, setMax_deduct] = useState(0);
@@ -43,6 +44,7 @@ export default function OracleDialog(props: DialogRawProp) {
         state: false,
         input: [] as string[],
         output: [] as string[],
+        filePath: [] as string[],
         checksum: [] as string[],
         deductPoint : 0,
         maxDeduct: 0
@@ -103,6 +105,13 @@ export default function OracleDialog(props: DialogRawProp) {
     }
 
 
+    const handleFilePathChange = (index : number) => (e : React.ChangeEvent<HTMLInputElement>) => {
+        let newArr = [...filePathData];
+        newArr[index] = e.target.value;
+        setfilePathData(newArr);
+    }
+
+
     const handleChecksumChange = (index : number) => (e : React.ChangeEvent<HTMLInputElement>) => {
         let newArr = [...checksumData];
         newArr[index] = e.target.value;
@@ -115,6 +124,7 @@ export default function OracleDialog(props: DialogRawProp) {
             state: false,
             input: [],
             output: [],
+            filePath: [],
             checksum: [],
             deductPoint : 0,
             maxDeduct: 0
@@ -128,6 +138,7 @@ export default function OracleDialog(props: DialogRawProp) {
             state: true,
             input: inputData,
             output: outputData,
+            filePath: filePathData,
             checksum: checksumData,
             deductPoint : deduct,
             maxDeduct: max_deduct
@@ -223,6 +234,20 @@ export default function OracleDialog(props: DialogRawProp) {
                             <SubdirectoryArrowRight />
                         </IconButton>
                     </Tooltip>
+                    <Grid xs item>
+                        <FormControl fullWidth margin="normal">
+                            <TextField
+                                value={filePathData[index] || ""}
+                                variant="outlined"
+                                id={"crc_fp-" + index}
+                                label={t('policy.io.filePath')}
+                                name={"crc_fp-" + index}
+                                className="crc_fp"
+                                multiline
+                                onChange={handleFilePathChange(index)}
+                            />
+                        </FormControl>
+                    </Grid>
                     <Grid xs item>
                         <FormControl fullWidth margin="normal">
                             <TextField

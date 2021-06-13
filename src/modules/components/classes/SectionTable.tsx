@@ -171,6 +171,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 <StyledTableCell key="cname" align="right">
                     Class name
                 </StyledTableCell>
+                <StyledTableCell key="cname" align="right">
+                    Violated Oracle Cases
+                </StyledTableCell>
+                <StyledTableCell key="cname" align="right">
+                    Violated Checksum Cases
+                </StyledTableCell>
                 {keyGroup.map((row, index) => (
                     <StyledTableCell key={index} align="right">
                         {row}
@@ -214,8 +220,8 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
 
     useEffect(() => {
         const getGradingData = async () : Promise<GradingResultProps[]> => {
-            // return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
-            return await axios.get<GradingResultProps[]>('/api/grade/', {
+            return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
+            // return await axios.get<GradingResultProps[]>('/api/grade/', {
                 params: {
                     itoken: props.itoken
                 },
@@ -272,6 +278,16 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
                                         </TableCell>
                                         <TableCell key={index + `cname`} align="right">
                                             {row.className}
+                                        </TableCell>
+                                        <TableCell>
+                                            {row.oracle?.violationNumber.map((violation) => (
+                                                violation + ", "
+                                            ))}
+                                        </TableCell>
+                                        <TableCell>
+                                            {row.oracle?.checksumNumber.map((violation) => (
+                                                violation + ", "
+                                            ))}
                                         </TableCell>
                                         {keyGroup.map((detail, idx) => (
                                             <TableCell key={idx + 'each'} align="right">

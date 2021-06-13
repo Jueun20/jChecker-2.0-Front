@@ -81,6 +81,7 @@
     "policy.io.2": "Add cases to check as the program executes the submitted code.",
     "policy.io.input": "Input",
     "policy.io.output": "Output",
+    "policy.io.filePath": "Output File path",
     "policy.io.checksum": "File checksum",
     "policy.javadoc.1": "Javadoc Settings",
     "policy.javadoc.2": "All 'public' fields and methods must have javadoc.",
