@@ -17,7 +17,7 @@ const styles = (theme: Theme) => createStyles ({
         alignItems: 'center',
         height: '90vh',
         [theme.breakpoints.up('md')]: {
-            height: '85vh',
+            height: '95vh',
         }
     },
     container: {

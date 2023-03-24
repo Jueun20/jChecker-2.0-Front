@@ -1,7 +1,6 @@
-import { Container, Grid, Link, makeStyles, Theme, Typography } from "@material-ui/core";
+import {Container, Grid, Link, makeStyles, Theme, Typography} from "@material-ui/core";
 import Typographic from '../components/Typographic';
 import React from "react";
-
 
 
 function Copyright() {
@@ -11,7 +10,7 @@ function Copyright() {
             <Link color="inherit" href="https://isel.handong.edu/">
                 <b>ISEL</b> Lab in Handong Global University.
             </Link>{' '}
-            {new Date().getFullYear()}<br />
+            {new Date().getFullYear()}<br/>
         </React.Fragment>
     );
 }
@@ -99,81 +98,84 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-
 function AppFooter() {
     const classes = useStyles();
 
     return (
         <Typography component="footer" className={classes.root}>
-        <Container className={classes.container}>
-            <Grid container spacing={2}>
-                <Grid item>
-                    <Grid
-                        container
-                        direction='row'
-                        justify="flex-start"
-                        className={classes.logoWrapper}
-                    >
-                        <img src="/assets/logo.png" alt="logo" className={classes.logoIcons}/>
-                    </Grid>
-                    
+            <Container className={classes.container}>
+                <Grid container spacing={2}>
                     <Grid item>
-                        <Copyright />
-
-                        <Typographic variant="caption" gutterBottom>
-                            {'Icons made by '}
-                            <Link href="https://www.freepik.com" rel="sponsered" title="Freepik" className={classes.white}>
-                                <b>Freepik</b>
-                            </Link>
-                            {' from '}
-                            <Link href="https://www.flaticon.com" rel="sponsered" title="Flaticon" className={classes.white}>
-                                www.flaticon.com
-                            </Link>
-                            {' is licensed by '}
-                            <Link href="https://creativecommons.org/licenses/by/3.0" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer" className={classes.white}>
-                                CC 3.0 BY
-                            </Link>
-                        </Typographic>
-
-                        <Grid 
-                            container 
-                            direction="row" 
+                        <Grid
+                            container
+                            direction='row'
                             justify="flex-start"
+                            className={classes.logoWrapper}
+                        >
+                            <img src="/assets/logo.png" alt="logo" className={classes.logoIcons}/>
+                        </Grid>
+
+                        <Grid item>
+                            <Copyright/>
+
+                            <Typographic variant="caption" gutterBottom>
+                                {'Icons made by '}
+                                <Link href="https://www.freepik.com" rel="sponsered" title="Freepik"
+                                      className={classes.white}>
+                                    <b>Freepik</b>
+                                </Link>
+                                {' from '}
+                                <Link href="https://www.flaticon.com" rel="sponsered" title="Flaticon"
+                                      className={classes.white}>
+                                    www.flaticon.com
+                                </Link>
+                                {' is licensed by '}
+                                <Link href="https://creativecommons.org/licenses/by/3.0" title="Creative Commons BY 3.0"
+                                      target="_blank" rel="noopener noreferrer" className={classes.white}>
+                                    CC 3.0 BY
+                                </Link>
+                            </Typographic>
+
+                            <Grid
+                                container
+                                direction="row"
+                                justify="flex-start"
+                            >
+                                <Grid item>
+                                    <a href="https://github.com/Jueun20">
+                                        <img src="/assets/github.svg" alt="Github" className={classes.icons}/>
+                                    </a>
+                                </Grid>
+                                <Grid item>
+                                    <a href="https://github.com/nayeawon">
+                                        <img src="/assets/github.svg" alt="Github" className={classes.icons}/>
+                                    </a>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid item>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="flex-start"
+                            className={classes.logoWrapper}
                         >
                             <Grid item>
-                                <a href="https://github.com/newForinux">
-                                    <img src="/assets/github.svg" alt="Github" className={classes.icons} />
-                                </a>
+                                <img src="/assets/hand.png" alt="Handong" className={classes.backgroundIcons}/>
                             </Grid>
                             <Grid item>
-                                <a href="https://github.com/Yessir-kim">
-                                    <img src="/assets/github.svg" alt="Github" className={classes.icons} />
-                                </a>
+                                <img src="/assets/ISEL-t.png" alt="ISEL" className={classes.labIcons}/>
                             </Grid>
                         </Grid>
+                        <Typographic variant="caption" gutterBottom>
+                            Handong Global University 558 Handong-ro <br/>Buk-gu, Pohang Gyeongbuk 37554 Republic of
+                            Korea
+                        </Typographic>
                     </Grid>
                 </Grid>
-                
-                <Grid item>
-                    <Grid 
-                        container
-                        direction="row"
-                        justify="flex-start"
-                        className={classes.logoWrapper}
-                    >
-                        <Grid item>
-                            <img src="/assets/hand.png" alt="Handong" className={classes.backgroundIcons}/>
-                        </Grid>
-                        <Grid item>
-                            <img src="/assets/ISEL-t.png" alt="ISEL" className={classes.labIcons}/>
-                        </Grid>
-                    </Grid>
-                    <Typographic variant="caption" gutterBottom>
-                        Handong Global University 558 Handong-ro <br />Buk-gu, Pohang Gyeongbuk 37554 Republic of Korea
-                    </Typographic>
-                </Grid>
-            </Grid>
-        </Container>
+            </Container>
         </Typography>
     )
 }

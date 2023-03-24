@@ -11,6 +11,10 @@ const styles = (theme: Theme) => createStyles({
         display: 'flex',
         overflow: 'hidden',
         backgroundColor: theme.palette.secondary.light,
+        height: '90vh',
+        [theme.breakpoints.up('md')]: {
+            height: '125vh',
+        }
     },
     container: {
         marginTop: theme.spacing(15),
@@ -33,7 +37,7 @@ const styles = (theme: Theme) => createStyles({
         padding: theme.spacing(0, 5),
     },
     image: {
-        height: 55,
+        height: 60,
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4),
     },
@@ -69,7 +73,7 @@ function SectionDetail(props: Props) {
                             <div className={classes.item}>
                                 <div className={classes.number}>1.</div>
                                 <img
-                                    src="assets/file_add.svg"
+                                    src="assets/upload.png"
                                     alt="file_add"
                                     className={classes.image}
                                 />
@@ -82,7 +86,7 @@ function SectionDetail(props: Props) {
                             <div className={classes.item}>
                                 <div className={classes.number}>2.</div>
                                 <img
-                                    src="assets/executing.svg"
+                                    src="assets/process.png"
                                     alt="execute"
                                     className={classes.image}
                                 />
@@ -95,12 +99,51 @@ function SectionDetail(props: Props) {
                             <div className={classes.item}>
                                 <div className={classes.number}>3.</div>
                                 <img
-                                    src="assets/diagram.svg"
+                                    src="assets/report.png"
                                     alt="file_add"
                                     className={classes.image}
                                 />
                                 <Typographic variant="h5" align="center">
                                     {t('detail.3.1')} <br /> {t('detail.3.2')}
+                                </Typographic>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <div className={classes.item}>
+                                <div className={classes.number}>3-1.</div>
+                                <img
+                                    src="assets/oop.png"
+                                    alt="file_add"
+                                    className={classes.image}
+                                />
+                                <Typographic variant="h5" align="center">
+                                    {t('detail.4.1')} <br /> {t('detail.4.2')} <br /> {t('detail.4.3')}
+                                </Typographic>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <div className={classes.item}>
+                                <div className={classes.number}>3-2.</div>
+                                <img
+                                    src="assets/debugging.png"
+                                    alt="file_add"
+                                    className={classes.image}
+                                />
+                                <Typographic variant="h5" align="center">
+                                    {t('detail.5.1')} <br /> {t('detail.5.2')}
+                                </Typographic>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <div className={classes.item}>
+                                <div className={classes.number}>3-3.</div>
+                                <img
+                                    src="assets/software.png"
+                                    alt="file_add"
+                                    className={classes.image}
+                                />
+                                <Typographic variant="h5" align="center">
+                                    {t('detail.6.1')} <br /> {t('detail.6.2')} <br /> {t('detail.6.3')}
                                 </Typographic>
                             </div>
                         </Grid>
