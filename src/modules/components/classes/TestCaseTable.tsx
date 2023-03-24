@@ -124,32 +124,10 @@ export default function TestCaseTable(props: RouteComponentProps<RouteParamsProp
         setPage(0);
     }
 
-    /*
-    useEffect(() => {
-        const getTestCaseData = async () : Promise<ClassroomOracle[]> => {
-            //return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/token/', {
-            return await axios.get<ClassroomOracle[]>('/api/token/', {
-                params: {
-                    itoken: props.itoken
-                },
-            }).then((response) => {
-                return response.data;
-            });
-        }
-
-        getTestCaseData()
-            .then((response) => {
-                for (var i = 0; i < response.length; i ++) {
-                    setDataGroup(old => [ ...old, response[i]]);
-                }
-            })
-    }, [props.itoken]);
-    */
-
     useEffect(() => {
         if (classroom === initial) {
             const getTestCaseData = async () : Promise<ClassroomOracle[]> => {
-                //return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/totken/')
+                // return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/totken/')
                 return await axios.get<ClassroomOracle[]>('/api/token/')
                     .then((response) =>{
                         return response.data
