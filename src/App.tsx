@@ -8,20 +8,27 @@ import SectionClassForInst from './modules/components/classes/SectionClassForIns
 import SectionError from './modules/components/classes/SectionError';
 import ResultProcess from './modules/components/classes/ResultProcess';
 
+import EntranceTest from './modules/views/EntranceTest';
+import SectionClassTest from './modules/components/classes/SectionClassTestForInst'
+
 //const theme = unstable_createMuiStrictModeTheme();
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/jchecker" component={Index} />
-        <Route exact path="/jchecker/classes" component={EntranceClass} />
-        <Route exact path="/jchecker/classes/:token" component={SectionClass} />
-        <Route exact path="/jchecker/classes/:token/success" component={ResultProcess} />
-        <Route exact path="/jchecker/instructors" component={EntranceInstructor} />
-        <Route exact path="/jchecker/instructors/:token" component={SectionClassForInst} />
-        <Route exact path="/jchecker/error" component={SectionError} />
-        <Redirect path="*" to="/jchecker" />
+        <Route exact path="/jchecker2.0" component={Index} />
+        <Route exact path="/jchecker2.0/classes" component={EntranceClass} />
+        <Route exact path="/jchecker2.0/classes/:token" component={SectionClass} />
+        <Route exact path="/jchecker2.0/classes/:token/success" component={ResultProcess} />
+        <Route exact path="/jchecker2.0/instructors" component={EntranceInstructor} />
+        <Route exact path="/jchecker2.0/instructors/:token" component={SectionClassForInst} />
+        <Route exact path="/jchecker2.0/error" component={SectionError} />
+
+        <Route exact path="/jchecker2.0/tests" component={EntranceTest} />
+        <Route exact path="/jchecker2.0/tests/:token" component={SectionClassTest} />
+
+        <Redirect path="*" to="/jchecker2.0" />
       </Switch>
     </Router>
   );
