@@ -12,7 +12,7 @@ function Index() {
             <AppbarView />
             <SectionMain /> 
             <SectionDetail />
-            <SectionBegin />
+            <SectionBegin id="section"/>
             <AppFooter />
         </React.Fragment>
     )
