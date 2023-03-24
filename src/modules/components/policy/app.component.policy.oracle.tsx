@@ -61,14 +61,20 @@ export default function OracleDialog(props: DialogRawProp) {
         const _fields = [...fields];
         const _input = [...inputData];
         const _output = [...outputData];
+        const _filePath = [...filePathData];
+        const _checksum = [...checksumData];
 
         _fields.splice(index, 1);
         _input.splice(index, 1);
         _output.splice(index, 1);
+        _filePath.splice(index, 1);
+        _checksum.splice(index, 1);
 
         setFields(_fields);
         setInputData(_input);
         setOutputData(_output);
+        setfilePathData(_fields);
+        setChecksumData(_checksum);
     }
 
 
@@ -228,7 +234,7 @@ export default function OracleDialog(props: DialogRawProp) {
                         </IconButton>
                     </Grid>
                 </Grid>
-                <Grid container alignItems="center" justify="center">
+                <Grid container spacing={1} alignItems="center" justify="center">
                     <Tooltip title="파일 다루지 않으면 빈 칸으로">
                         <IconButton>
                             <SubdirectoryArrowRight />

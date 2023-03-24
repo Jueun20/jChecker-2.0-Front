@@ -2,7 +2,7 @@ import { Button, Theme, withStyles } from "@material-ui/core";
 
 export default withStyles((theme: Theme) => ({
     root: {
-        borderRadius: 0,
+        borderRadius: 30,
         fontWeight: theme.typography.fontWeightMedium,
         fontFamily: theme.typography.fontFamily,
         padding: theme.spacing(2, 4),

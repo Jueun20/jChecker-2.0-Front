@@ -1,13 +1,13 @@
-import { TableContainer, 
-    Table, 
-    TableRow, 
-    TableBody, 
-    TableCell, 
-    Paper, 
-    TableHead, 
-    TablePagination, 
-    makeStyles, 
-    withStyles, 
+import { TableContainer,
+    Table,
+    TableRow,
+    TableBody,
+    TableCell,
+    Paper,
+    TableHead,
+    TablePagination,
+    makeStyles,
+    withStyles,
     Theme,
     createStyles,
     TableSortLabel} from "@material-ui/core";
@@ -53,14 +53,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const StyledTableRow = withStyles((theme: Theme) => ({
     root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
     },
 }))(TableRow);
 
 
-const StyledTableCell = withStyles((theme: Theme) => 
+const StyledTableCell = withStyles((theme: Theme) =>
     createStyles({
         head: {
             backgroundColor: '#00234B',
@@ -69,7 +69,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
         body: {
             fontSize: 16,
         }
-}))(TableCell);
+    }))(TableCell);
 
 
 
@@ -111,8 +111,8 @@ function getComparator<Key extends keyof any>(
     orderBy: Key,
 ): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
     return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 
@@ -163,7 +163,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                     >
                         Student Score
                     </TableSortLabel>
-                    
+
                 </StyledTableCell>
                 <StyledTableCell key="time" align="right">
                     Grading Timestamp
@@ -196,7 +196,7 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [keyGroup, setKeyGroup] = useState<string[]>( [] );
     const [dataGroup, setDataGroup] = useState<GradingResultProps[]>( [] );
-    
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -220,8 +220,8 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
 
     useEffect(() => {
         const getGradingData = async () : Promise<GradingResultProps[]> => {
-            return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
-            // return await axios.get<GradingResultProps[]>('/api/grade/', {
+            //return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
+            return await axios.get<GradingResultProps[]>('/api/grade/', {
                 params: {
                     itoken: props.itoken
                 },
@@ -237,7 +237,7 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
                     const element = clean(response[i]) as GradingResultProps;
 
                     if (i === 0) {
-                        setKeyGroup(Object.keys(element).filter(item => 
+                        setKeyGroup(Object.keys(element).filter(item =>
                             item !== 'studentNum' && item !== 'point' && item !== 'result' &&
                             item !== 'gradingDate' && item !== 'className'));
                     }
@@ -294,17 +294,17 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
                                                 {-row[detail].deductedPoint}
                                             </TableCell>
                                         ))}
-                                
+
                                     </StyledTableRow>
                                 );
-                            })       
+                            })
                         }
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 53 * emptyRows}}>
                                 <TableCell colSpan={6} />
                             </TableRow>
                         )}
-                    
+
                     </TableBody>
                 </Table>
             </TableContainer>

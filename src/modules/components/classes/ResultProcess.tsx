@@ -84,7 +84,7 @@ function ResultProcess (props : RouteComponentProps<RouteParamsProps>) {
     const { t } = useTranslation();
 
     if (props.location.state === undefined) {
-        props.history.push('/jchecker/error');
+        props.history.push('/jchecker2.0/error');
         return null;
     } 
     
@@ -120,7 +120,7 @@ function ResultProcess (props : RouteComponentProps<RouteParamsProps>) {
                         underline="none"
                         color="inherit"
                         className={classesStyle.title}
-                        href="/jchecker"
+                        href="/jchecker2.0"
                     >
                         <img src="/assets/logo.png" alt="logo" className={classesStyle.logo} />
                     </Link>

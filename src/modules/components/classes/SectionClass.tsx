@@ -14,12 +14,12 @@ import { useTranslation } from "react-i18next";
 
 
 const backgroundImages = [
-    'https://images.unsplash.com/photo-1613169620329-6785c004d900?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-    'https://images.unsplash.com/photo-1611572698227-3f61a040f13d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-    'https://images.unsplash.com/photo-1605509407676-36601014de0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80',
-    'https://images.unsplash.com/photo-1612192047524-9c90876522b6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1187&q=80',
-    'https://images.unsplash.com/photo-1613852706285-4b080230e8db?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1591931644839-fcbf1c4814ed?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80',
+    'https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    'https://images.unsplash.com/photo-1517673132405-a56a62b18caf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80',
+    'https://images.unsplash.com/photo-1593588332695-cd49488a8ec8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
+    'https://images.unsplash.com/photo-1541018939203-36eeab6d5721?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    'https://images.unsplash.com/photo-1661732017082-a82ecf38af87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    'https://images.unsplash.com/photo-1670348060135-d4c6662b4138?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
 ];
 
 
@@ -107,7 +107,7 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
     
     const handleCreate = (status: boolean, grading: Object) => {
         if (!status)
-            props.history.push('/jchecker/error');
+            props.history.push('/jchecker2.0/error');
 
         else
             props.history.push({
@@ -132,14 +132,14 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
                 setClassroom(response.find(element => element.token === props.match.params.token) || initial);
                 
                 if (response.find(element => element.token === props.match.params.token) === undefined) {
-                    props.history.push('/jchecker');
+                    props.history.push('/jchecker2.0');
                     alert("클래스가 없습니다.😅");
                 } else {
                     setValid(true);
                 }
             })
             .catch(response => {
-                props.history.push('/jchecker/error');
+                props.history.push('/jchecker2.0/error');
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,7 +155,7 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
                         underline="none"
                         color="inherit"
                         className={classesStyle.title}
-                        href="/jchecker"
+                        href="/jchecker2.0"
                     >
                         <img src="/assets/logo.png" alt="logo" className={classesStyle.logo} />
                     </Link>

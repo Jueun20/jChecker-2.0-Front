@@ -98,3 +98,25 @@ export interface GradingResultProps {
         deductedPoint: number,
     } | undefined,
 }
+
+export interface ClassroomOracle {
+    itoken: string,
+    className: string,
+    instructor: string,
+    createDate: string,
+    dueDate: string,
+    point: number,
+    oracle: {
+        state: boolean,
+        deductPoint: number,
+        input: [],
+        output: [],
+        checksum: [],
+        filePath: [],
+    } | undefined,
+}
+
+export interface WindowSize {
+    width: number | undefined;
+    height: number | undefined;
+}
