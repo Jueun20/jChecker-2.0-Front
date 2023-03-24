@@ -173,7 +173,11 @@ export default function TestCaseTable(props: RouteComponentProps<RouteParamsProp
                                     );
                                 })
                             }
-
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: 53 * emptyRows}}>
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
