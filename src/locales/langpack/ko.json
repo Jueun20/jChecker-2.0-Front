@@ -1,5 +1,6 @@
 {
     "start_button": "시작하기",
+    "about_button": "알아보기",
     "input.": "토큰",
     "input.token": "클래스 토큰을 입력하세요",
     "generate.token": "토큰 생성",
@@ -19,6 +20,14 @@
     "detail.2.2": "여러 테스트 케이스로 제출된 과제를 채점합니다.",
     "detail.3.1": "피드백을 제공해", 
     "detail.3.2": "채점 결과를 설명합니다.",
+    "detail.4.1": "제출물의 객체 지향 개념을",
+    "detail.4.2": "시각화한 그래프를 제공합니다.",
+    "detail.4.3": "",
+    "detail.5.1": "결함 위치추정 기술을 적용하여",
+    "detail.5.2": "위험도 높은 코드를 보여줍니다.",
+    "detail.6.1": "자동 프로그램 수정 기법을 통해",
+    "detail.6.2": "코드 수정의 방향성을 제시합니다.",
+    "detail.6.3": "",
 
     "error.1": "요청을 처리할 수 없습니다...",
     "error.2": "잘못된 파일 형식, 채점 서버 오류, 또는 잘못된 주소 요청일 수 있습니다.",
@@ -100,7 +109,7 @@
     "begin.getting start": "지금 시작하세요.",
     "begin.enter token": "인증 토큰을 입력해",
     "begin.enter token rest": "현재 열린 클래스에 입장합니다.",
-    "begin.enter generate contact": "클래스를 운영하고 싶으신가요? JCHECKER팀에게 연락 주세요!", 
+    "begin.enter generate contact": "클래스를 운영하고 싶으신가요? JCHECKER 2.0 팀에게 연락 주세요!",
 
     "result.score.success": "채점 완료!",
     "result.score.delay": "제출 기한이 지나 감점되었습니다. (1일 = 1점)",
@@ -117,5 +126,9 @@
     "result.score.overloading": "오버로딩 : 오버로딩이 적용된 메서드가 없습니다.",
     "result.score.thread": "스레드 : 스레드가 구현되지 않은 것 같습니다.",
     "result.score.javadoc": "자바독 : 자바독이 부족하거나, 작성되지 않은 것 같습니다.",
-    "result.score.encap": "캡슐화 : 캡슐화가 적용되지 않은 클래스가 발견되었습니다."
+    "result.score.encap": "캡슐화 : 캡슐화가 적용되지 않은 클래스가 발견되었습니다.",
+
+    "begin.test token": "▶︎ 테스트 케이스 확인하기",
+    "entrance.test title": "테스트 케이스",
+    "entrance.test detail": "클래스 토큰을 이용해 테스트 케이스 목록을 확인합니다."
 }
