@@ -66,6 +66,7 @@
     "file transfer": "선택된 파일이 없습니다.",
     
     "policy.point": "총점",
+    "policy.level": "피드백 단계",
     "policy.count.methods": "최소 메서드 개수",
     "policy.count.fields": "최소 필드 개수",
     "policy.count.enhance": "Enhanced for 개수",

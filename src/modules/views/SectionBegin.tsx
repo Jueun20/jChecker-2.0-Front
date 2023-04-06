@@ -49,9 +49,6 @@ function SectionBegin(props: Props) {
                     &nbsp;{t('begin.enter token rest')}<br /><br />
                 {t('begin.enter generate contact')}
             </Typographic>
-            <Link href="/jchecker2.0/tests" color="secondary">
-                {t('begin.test token')}
-            </Link>
         </SectionLayout>
     )
 

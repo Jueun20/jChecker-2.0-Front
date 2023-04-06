@@ -45,8 +45,8 @@ function FileTransfer (props) {
         const formData = new FormData();
         formData.append('file', file);
 
-        // return await axios.post('http://isel.lifove.net/api/grade/execute', formData, {
-        return axios.post('/api/grade/execute', formData, {
+        // return await axios.post('http://isel.lifove.net/api/grade2.0/execute', formData, {
+        return axios.post('/api/grade2.0/execute', formData, {
             params: {
                 studentNum: props.id,
                 token: props.name,

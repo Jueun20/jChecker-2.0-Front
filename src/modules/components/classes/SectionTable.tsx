@@ -177,7 +177,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 <StyledTableCell key="cname" align="right">
                     Violated Checksum Cases
                 </StyledTableCell>
-                {keyGroup.map((row, index) => (
+                {keyGroup
+                    .filter((row) => row !== 'feedbackLevel')
+                    .map((row, index) => (
                     <StyledTableCell key={index} align="right">
                         {row}
                     </StyledTableCell>
@@ -220,8 +222,8 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
 
     useEffect(() => {
         const getGradingData = async () : Promise<GradingResultProps[]> => {
-            //return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade/', {
-            return await axios.get<GradingResultProps[]>('/api/grade/', {
+            // return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade2.0/', {
+            return await axios.get<GradingResultProps[]>('/api/grade2.0/', {
                 params: {
                     itoken: props.itoken
                 },
@@ -289,7 +291,9 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
                                                 violation + ", "
                                             ))}
                                         </TableCell>
-                                        {keyGroup.map((detail, idx) => (
+                                        {keyGroup
+                                            .filter((detail) => detail !== 'feedbackLevel')
+                                            .map((detail, idx) => (
                                             <TableCell key={idx + 'each'} align="right">
                                                 {-row[detail].deductedPoint}
                                             </TableCell>

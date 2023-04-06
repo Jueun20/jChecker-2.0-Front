@@ -17,9 +17,11 @@ export interface ClassroomProps {
 
 export interface ClassroomInstProps {
     itoken: string,
+    token: string,
     className: string,
     instructor: string,
     createDate: string,
+    feedbackLevel: number,
 }
 
 export interface ClassroomInstTokenProps {
@@ -47,6 +49,7 @@ export interface GradingResultProps {
     isDirect: string,
     studentNum: string,
     className: string,
+    feedbackLevel: number,
     gradingDate: string,
     result: number,
     point: number,
@@ -114,9 +117,4 @@ export interface ClassroomOracle {
         checksum: [],
         filePath: [],
     } | undefined,
-}
-
-export interface WindowSize {
-    width: number | undefined;
-    height: number | undefined;
 }

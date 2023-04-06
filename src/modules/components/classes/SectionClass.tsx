@@ -111,7 +111,7 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
 
         else
             props.history.push({
-                pathname: `${props.match.url}/success`,
+                pathname: `${props.match.url }/success`,
                 state: grading,
             });
     }
@@ -120,8 +120,8 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
     useEffect(() => {
         if (classroom === initial) {
             const currentClassroomState = async (): Promise<ClassroomProps[]> => {
-                // return await axios.get<ClassroomProps[]>('http://isel.lifove.net/api/token/')
-                return await axios.get<ClassroomProps[]>('/api/token/')
+                // return await axios.get<ClassroomProps[]>('http://isel.lifove.net/api/token2.0/')
+                return await axios.get<ClassroomProps[]>('/api/token2.0/')
                 .then((response) => {
                     return response.data
                 });

@@ -127,8 +127,8 @@ export default function TestCaseTable(props: RouteComponentProps<RouteParamsProp
     useEffect(() => {
         if (classroom === initial) {
             const getTestCaseData = async () : Promise<ClassroomOracle[]> => {
-                // return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/totken/')
-                return await axios.get<ClassroomOracle[]>('/api/token/')
+                // return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/token2.0/')
+                return await axios.get<ClassroomOracle[]>('/api/token2.0/')
                     .then((response) =>{
                         return response.data
                     });

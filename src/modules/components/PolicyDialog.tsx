@@ -20,6 +20,7 @@ import PackageDialog from "./policy/app.component.policy.package";
 import SuperclassDialog from "./policy/app.component.policy.super";
 import ThreadDialog from "./policy/app.component.policy.thread";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Typography from '@material-ui/core/Typography';
 import DateFnsUtils from "@date-io/date-fns"
 
 
@@ -64,7 +65,7 @@ export default function SelectCond(props: PolicyProps) {
         overloading: false,
         thread: false,
         javadoc: false,
-        encapsulation: false
+        encapsulation: false,
     };
 
 
@@ -90,6 +91,13 @@ export default function SelectCond(props: PolicyProps) {
         javadoc: { state: false } as Object,
         thread: { state: false } as Object,
         encapsulation: { state: false } as Object,
+
+        feedbackLevel: 1 //
+    };
+
+    const level_state = {
+      selectList: [1, 2, 3],
+      selectValue: 1
     };
 
     const [open, setOpen] = useState(props.state);
@@ -166,8 +174,8 @@ export default function SelectCond(props: PolicyProps) {
     const handleSubmit = async () => {
         setLoading(true);
 
-        // await axios.post("http://isel.lifove.net/api/token/save", JSON.stringify(policy, null, 2), {
-        axios.post("/api/token/save", JSON.stringify(policy, null, 2), {    
+        // await axios.post("http://isel.lifove.net/api/token2.0/save", JSON.stringify(policy, null, 2), {
+        axios.post("/api/token2.0/save", JSON.stringify(policy, null, 2), {
             headers: {"Content-Type": 'application/json'}
         }).then((res) => {
             setOpen(false);
@@ -219,6 +227,24 @@ export default function SelectCond(props: PolicyProps) {
                                     onChange={handleDateChange}
                                 />
                             </MuiPickersUtilsProvider>
+                        </Grid>
+                        <Grid container direction="row">
+                            <Typography style={{color: 'grey', fontSize: '11px'}}>{t('policy.level')}</Typography>
+                            <Grid item>
+                                {level_state.selectList.map((value, i) => (
+                                    <React.Fragment key={i}>
+                                        <input
+                                            id={value.toString()}
+                                            value={value}
+                                            name="feedbackLevel"
+                                            type="radio"
+                                            checked={policy.feedbackLevel === value}
+                                            onChange={e => setPolicy({ ...policy, feedbackLevel: (parseInt(e.target.value) || policy.feedbackLevel)})}
+                                        />
+                                        {value}
+                                    </React.Fragment>
+                                ))}
+                            </Grid>
                         </Grid>
                     </Grid>
                     <FormGroup>

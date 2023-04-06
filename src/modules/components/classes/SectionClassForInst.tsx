@@ -1,4 +1,4 @@
-import { AppBar, Link, makeStyles, Theme } from "@material-ui/core";
+import {AppBar, Button, Grid, Link, makeStyles, Theme} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import WithRoot from '../../root';
@@ -9,6 +9,8 @@ import AppFooter from "../../views/Footer";
 import axios from "axios";
 import { ClassroomInstProps, RouteParamsProps } from ".";
 import SectionTable from "./SectionTable";
+import Typography from "@material-ui/core/Typography";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -60,7 +62,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     table: {
         width: '100%',
-    }
+    },
+    save: {
+        maxHeight: 18,
+        borderRadius: 30,
+    },
 }));
 
 
@@ -84,20 +90,23 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
 
     const initial = {
         itoken: "",
+        token: "",
         className: "",
         instructor: "",
         createDate: "",
+        feedbackLevel: 1,
     };
 
-
+    const initial_feedbackLevel = 1;
+    const [level, setLevel] = useState(initial_feedbackLevel);
     const [classroom, setClassroom] = useState(initial);
-
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (classroom === initial) {
             const currentClassroomState = async (): Promise<ClassroomInstProps[]> => {
-                // return await axios.get<ClassroomInstProps[]>('http://isel.lifove.net/api/token/')
-                return await axios.get<ClassroomInstProps[]>('/api/token/')
+                // return await axios.get<ClassroomInstProps[]>('http://isel.lifove.net/api/token2.0/')
+                return await axios.get<ClassroomInstProps[]>('/api/token2.0/')
                 .then((response) => {
                     return response.data
                 });
@@ -107,6 +116,7 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
             currentClassroomState()
             .then(response => {
                 setClassroom(response.find(element => element.itoken === props.match.params.token) || initial);
+                setLevel(response.find(element => element.itoken === props.match.params.token)?.feedbackLevel || initial_feedbackLevel);
                 if (response.find(element => element.itoken === props.match.params.token) === undefined) {
                     props.history.push('/jchecker2.0');
                     alert("클래스가 없습니다.😅");
@@ -116,6 +126,26 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[classroom]);
 
+    const level_state = {
+        selectList: [1, 2, 3],
+        selectValue: classroom.feedbackLevel,
+    };
+
+    const handleSave = async () => {
+        const updatedFields = {
+            feedbackLevel: level,
+        };
+
+        // axios.post ("http://isel.lifove.net/api/token2.0/update", updatedFields, {
+        await axios.post("/api/token2.0/update", updatedFields, {
+            params: {
+                token: classroom.token
+            },
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        alert("저장되었습니다.🙂");
+    }
 
     return (
         <>
@@ -143,6 +173,36 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
                 <Typographic color="inherit" align="center" variant="h5" className={classesStyle.h5}>
                     opened by <b>{classroom.instructor}</b> on {classroom.createDate}
                 </Typographic>
+
+                <Grid container direction="row" justify="center">
+                    <Typography style={{color: 'white', fontSize: '15px', fontWeight: 'bold'}}>Level of feedback &nbsp;&nbsp;&nbsp;</Typography>
+                    <Grid item>
+                        {level_state.selectList.map((value, i) => (
+                            <React.Fragment key={i}>
+                                <input
+                                    id={value.toString()}
+                                    value={value}
+                                    name="feedbackLevel"
+                                    type="radio"
+                                    checked={level === value}
+                                    onChange={e => setLevel( parseInt(e.target.value) || level)}
+                                />
+                                {value}&nbsp;&nbsp;
+                            </React.Fragment>
+                        ))}
+                    </Grid>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            size="small"
+                            onClick={handleSave}
+                            className={classesStyle.save}
+                        >
+                            SAVE
+                        </Button>
+                    </Grid>
+                </Grid>
 
             </SectionLayout>
             <AppFooter />

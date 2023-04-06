@@ -7,6 +7,7 @@ import SectionClass from './modules/components/classes/SectionClass'
 import SectionClassForInst from './modules/components/classes/SectionClassForInst';
 import SectionError from './modules/components/classes/SectionError';
 import ResultProcess from './modules/components/classes/ResultProcess';
+import ResultDetail from './modules/components/classes/ResultDetail';
 
 import EntranceTest from './modules/views/EntranceTest';
 import SectionClassTest from './modules/components/classes/SectionClassTestForInst'
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/jchecker2.0/classes" component={EntranceClass} />
         <Route exact path="/jchecker2.0/classes/:token" component={SectionClass} />
         <Route exact path="/jchecker2.0/classes/:token/success" component={ResultProcess} />
+        <Route exact path="/jchecker2.0/classes/:token/success/details" component={ResultDetail} />
         <Route exact path="/jchecker2.0/instructors" component={EntranceInstructor} />
         <Route exact path="/jchecker2.0/instructors/:token" component={SectionClassForInst} />
         <Route exact path="/jchecker2.0/error" component={SectionError} />
