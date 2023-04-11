@@ -39,7 +39,7 @@ export default function InterfaceDialog(props: DialogRawProp) {
         state: false,
         origins: [] as string[],
         inherit: [] as string[],
-        deductPoint : 0,
+        deductPoint: 0,
         maxDeduct: 0
     });
 

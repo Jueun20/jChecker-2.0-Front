@@ -39,7 +39,7 @@ export default function OverloadingDialog(props: DialogRawProp) {
     const [resOvl, setResOvl] = useState({
         state: false,
         required: [] as string[],
-        deductPoint : 0,
+        deductPoint: 0,
         maxDeduct: 0
     });
 

@@ -73,6 +73,7 @@ export default function SelectCond(props: PolicyProps) {
         className: props.className,
         instructor: props.instructor,
         feedback: props.isDirect,
+        feedbackLevel: 1,
         token: props.token,
         itoken: props.itoken,
         point: 0,
@@ -91,8 +92,6 @@ export default function SelectCond(props: PolicyProps) {
         javadoc: { state: false } as Object,
         thread: { state: false } as Object,
         encapsulation: { state: false } as Object,
-
-        feedbackLevel: 1 //
     };
 
     const level_state = {
@@ -120,7 +119,6 @@ export default function SelectCond(props: PolicyProps) {
 
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
- 
 
         if (date !== null) {
             let _YEAR = date?.getFullYear();
@@ -229,8 +227,8 @@ export default function SelectCond(props: PolicyProps) {
                             </MuiPickersUtilsProvider>
                         </Grid>
                         <Grid container direction="row">
-                            <Typography style={{color: 'grey', fontSize: '11px'}}>{t('policy.level')}</Typography>
-                            <Grid item>
+                            <Typography style={{color: 'grey', fontSize: '11px'}}>&nbsp;&nbsp;&nbsp;{t('policy.level')}&nbsp;&nbsp;</Typography>
+                            <Grid item spacing={1}>
                                 {level_state.selectList.map((value, i) => (
                                     <React.Fragment key={i}>
                                         <input
@@ -364,7 +362,7 @@ export default function SelectCond(props: PolicyProps) {
                 </DialogActions>
                 
                 {state.count && 
-                    <CountDialog open={state.count} onCreate={handleCreate} keepMounted /> } 
+                    <CountDialog open={state.count} onCreate={handleCreate} keepMounted /> }
 
                 {state.compiled && 
                     <CompiledDialog open={state.compiled} onCreate={handleCreate} keepMounted /> }
