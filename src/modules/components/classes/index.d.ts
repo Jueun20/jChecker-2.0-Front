@@ -20,8 +20,11 @@ export interface ClassroomInstProps {
     token: string,
     className: string,
     instructor: string,
+    feedback: boolean,
     createDate: string,
     feedbackLevel: number,
+    point: number,
+    dueDate: string,
 }
 
 export interface ClassroomInstTokenProps {
@@ -117,4 +120,99 @@ export interface ClassroomOracle {
         checksum: [],
         filePath: [],
     } | undefined,
+}
+
+export interface GradingPolicyProps {
+    itoken: string,
+    token: string,
+    className: string,
+    instructor: string,
+    feedback: boolean,
+    createDate: string,
+    dueDate: string,
+    point: number,
+    compiled: {
+        state: boolean,
+        buildTool: boolean,
+        deductPoint: number,
+    },
+    oracle: {
+        state: boolean,
+        input: string[],
+        output: string[],
+        checksum: string[],
+        filePath: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    packages: {
+        state: boolean,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    classes: {
+        state: boolean,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    customException: {
+        state: boolean,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    customStructure: {
+        state: boolean,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    overriding: {
+        state: boolean,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    overloading: {
+        state: false,
+        required: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    thread: {
+        state: boolean,
+        deductPoint : number,
+    },
+    javadoc: {
+        state: boolean,
+        deductPoint : number,
+    },
+    encapsulation: {
+        state: boolean,
+        deductPoint : number,
+    },
+    inheritSuper: {
+        state: boolean,
+        origins: string[],
+        inherit: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    inheritInterface: {
+        state: boolean,
+        origins: string[],
+        inherit: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
+    count: {
+        state: boolean,
+        methodCount: number,
+        fieldCount: number,
+        enForCount: number,
+        deductPoint: number,
+    },
+    feedbackLevel: number,
 }
