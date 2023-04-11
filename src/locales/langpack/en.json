@@ -5,6 +5,7 @@
     "input.token": "Enter a class token",
     "generate.token": "Generate a token",
     "closed": "Close",
+    "delete": "Delete",
     "next": "Next",
     "submit": "Submit",
     "add": "Add",
@@ -52,15 +53,20 @@
     "method name": "Method Name",
     "interface name": "Interface Name",
     "Interface class name": "Implemented Class Name",
-    "instructor name": "Instructor Name",
     "Inherited class name": "Subclass Name",
     "super class name": "Superclass Name",
+
+    "instructor name": "Instructor Name",
 
     "dialog.1": "Grading policy",
     "dialog.2": "Select which details to examine for using static analysis and test oracle.",
     "dialog.deadline": "Deadline",
     "check.again.1": "Policy is successfully saved.",
     "check.again.2": "If you forgot the token, check it out one more time!",
+
+    "dialog.update.1": "Update grading policy",
+    "dialog.update.2": "Edit and save the grading policy that you have already registered.",
+    "dialog.update.3": "Click the \"✏️ Edit\" button to edit the grading policy for each part.︎︎",
 
     "file transfer": "No files selected.",
 
@@ -111,14 +117,13 @@
     "begin.enter token rest": "to enter the opened class.",
     "begin.enter generate contact": "Do you want to run a class? Please contact us, JCHECKER 2.0 team.",
 
-    "begin.test token": "▶︎ Check the test case",
-
     "result.score.success": "Scoring completed!",
     "result.score.delay": "The score was deducted after the deadline (-1 per day).",
     "result.score.count": "The number of fields, methods or (if required) advanced for statements is insufficient.",
     "result.score.class": "Class : No specified classes.",
     "result.score.compile": "Compilation : There is a problem with the compilation.",
     "result.score.testcase": "Test case : Wrong. Make test cases yourself and check them again.",
+    "result.score.testcase.failed": "Failed test case #",
     "result.score.package": "Package : Package path is not valid.",
     "result.score.customexc": "Custom Exception Class : The class does not exist or has not been used.",
     "result.score.customstr": "Custom Data Class : The class does not exist or has not been used.",
@@ -128,5 +133,9 @@
     "result.score.overloading": "Overloading : No methods applied overloading.",
     "result.score.thread": "Thread : thread does not appear to be implemented.",
     "result.score.javadoc": "Javadoc : Javadoc is insufficient or may not have been created.",
-    "result.score.encap": "Encapsulation : The class without encapsulation was found."
+    "result.score.encap": "Encapsulation : The class without encapsulation was found.",
+
+    "begin.test token": "▶︎ Check the test case",
+    "entrance.test title": "Test case",
+    "entrance.test detail": "Use the class token to check the list of test cases."
 }
