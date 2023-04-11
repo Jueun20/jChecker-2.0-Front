@@ -1,4 +1,4 @@
-import {AppBar, Button, Grid, Link, makeStyles, Theme} from "@material-ui/core";
+import {AppBar, Button, Grid, Link as MLink, Link, makeStyles, Theme} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import WithRoot from '../../root';
@@ -9,6 +9,7 @@ import AppFooter from "../../views/Footer";
 import axios from "axios";
 import { ClassroomInstProps, RouteParamsProps } from ".";
 import SectionTable from "./SectionTable";
+import PolicyUpdateDialog from "../PolicyUpdateDialog";
 import Typography from "@material-ui/core/Typography";
 import {useTranslation} from "react-i18next";
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: theme.spacing(4),
         marginTop: theme.spacing(4),
         [theme.breakpoints.up('sm')]: {
-            marginTop: theme.spacing(10),
+            marginTop: theme.spacing(5),
         },
         fontFamily: 'JSDongkang-Regular',
     },
@@ -93,14 +94,17 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
         token: "",
         className: "",
         instructor: "",
+        feedback: false,
         createDate: "",
+        dueDate: "",
         feedbackLevel: 1,
+        point: 0,
     };
 
     const initial_feedbackLevel = 1;
     const [level, setLevel] = useState(initial_feedbackLevel);
     const [classroom, setClassroom] = useState(initial);
-    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (classroom === initial) {
@@ -136,8 +140,8 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
             feedbackLevel: level,
         };
 
-        // axios.post ("http://isel.lifove.net/api/token2.0/update", updatedFields, {
-        await axios.post("/api/token2.0/update", updatedFields, {
+        // axios.post ("http://isel.lifove.net/api/token2.0/update/level", updatedFields, {
+        await axios.post("/api/token2.0/update/level", updatedFields, {
             params: {
                 token: classroom.token
             },
@@ -145,6 +149,14 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
         });
 
         alert("저장되었습니다.🙂");
+    }
+
+    const handleOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
     }
 
     return (
@@ -170,10 +182,25 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
                 
                 <SectionTable itoken={classroom.itoken} />
 
-                <Typographic color="inherit" align="center" variant="h5" className={classesStyle.h5}>
-                    opened by <b>{classroom.instructor}</b> on {classroom.createDate}
-                </Typographic>
-
+                <Grid
+                    container
+                    spacing={6}
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typographic color="inherit" align="center" variant="h5" className={classesStyle.h5}>
+                            opened by <b>{classroom.instructor}</b> on {classroom.createDate}
+                        </Typographic>
+                    </Grid>
+                    <Grid item>
+                        <MLink color="inherit" variant="h6" onClick={handleOpen} >
+                            <b>✏️&nbsp;&nbsp;Update Total Policy</b>
+                        </MLink>
+                    </Grid>
+                </Grid>
+                <br></br>
                 <Grid container direction="row" justify="center">
                     <Typography style={{color: 'white', fontSize: '15px', fontWeight: 'bold'}}>Level of feedback &nbsp;&nbsp;&nbsp;</Typography>
                     <Grid item>
@@ -203,7 +230,20 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
                         </Button>
                     </Grid>
                 </Grid>
-
+                {open &&
+                    <PolicyUpdateDialog
+                        state={open}
+                        handleClose={handleClose}
+                        className={classroom.className}
+                        instructor={classroom.instructor}
+                        token={classroom.token}
+                        itoken={classroom.itoken}
+                        isDirect={classroom.feedback}
+                        feedbackLevel={classroom.feedbackLevel}
+                        point={classroom.point}
+                        dueDate={classroom.dueDate}
+                     />
+                }
             </SectionLayout>
             <AppFooter />
         </>
