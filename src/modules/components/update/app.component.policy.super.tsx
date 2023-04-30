@@ -31,7 +31,15 @@ export default function SuperclassDialog(props: DialogRawInterfaceOrSuperClassPr
     const { open: isOpen } = props;
     
     const [open, setOpen] = useState(isOpen);
-    const [fields, setFields] = useState(["spc-0"]);
+    const [fields, setFields] = useState<string[]>(() => {
+        if (props.initial.origins !== null) {
+            const array = [];
+            for (let i = 0; i < props.initial.origins.length; i ++) {
+                array.push(`spc-${i}`)
+            }
+        }
+        return ["spc-0"];
+    });
     const [originClass, setOriginClass] = useState(props.initial.state ? props.initial.origins : [""]);
     const [superclass, setSuperclass] = useState(props.initial.state ? props.initial.inherit : [""]);
     const [deduct, setDeduct] = useState(props.initial.state ? props.initial.deductPoint : 0);

@@ -48,15 +48,6 @@ export default function CountDialog(props: DialogRawCountProp) {
 
 
     const handleClose = () => {
-        /*
-        setResCnt({
-            state: false,
-            methodCount: 0,
-            fieldCount: 0,
-            enForCount: 0,
-            deductPoint : 0,
-        });
-        */
         props.onClose("count");
         setOpen(false);
     }

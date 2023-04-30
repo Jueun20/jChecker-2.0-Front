@@ -9,8 +9,6 @@ import { Button,
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
 import { DialogRawCheckUtilProp } from ".";
-import {truncateSync} from "fs";
-
 
 
 export default function ThreadDialog(props: DialogRawCheckUtilProp) {

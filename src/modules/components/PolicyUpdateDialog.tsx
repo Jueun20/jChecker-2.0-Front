@@ -184,29 +184,27 @@ export default function SelectCond(props: PolicyProps) {
     const [selectedDate, setSelectedDate] = useState<Date | null>();
 
     useEffect(() => {
-        if (initial === initial_data) {
-            const currentPolicyState = async (): Promise<GradingPolicyProps[]> => {
-                // return await axios.get<ClassroomInstProps[]>('http://isel.lifove.net/api/token2.0/')
-                return await axios.get<GradingPolicyProps[]>('/api/token2.0/')
-                    .then((response) => {
-                        return response.data
-                    });
-            };
+        const currentPolicyState = async (): Promise<GradingPolicyProps[]> => {
+            //return await axios.get<GradingPolicyProps[]>('http://isel.lifove.net/api/token2.0/')
+            return await axios.get<GradingPolicyProps[]>('/api/token2.0/')
+                .then((response) => {
+                    return response.data
+                });
+        };
 
-            currentPolicyState()
-                .then(response => {
-                    setInitial(response.find(element => element.itoken === props.itoken) || initial_data);
-                    if (policy === initial_data) {
-                        setPolicy(response.find(element => element.itoken === props.itoken) || initial_data);
-                    }
-                    if (response.find(element => element.itoken === props.itoken) === undefined) {
-                        setOpen(false);
-                        alert("채점 정책을 수정할 수 없습니다.😅");
-                    }
+        currentPolicyState()
+            .then(response => {
+                setInitial(response.find(element => element.itoken === props.itoken) || initial_data);
+                if (policy === initial_data) {
+                    setPolicy(response.find(element => element.itoken === props.itoken) || initial_data);
+                }
+                if (response.find(element => element.itoken === props.itoken) === undefined) {
+                    setOpen(false);
+                    alert("채점 정책을 수정할 수 없습니다.😅");
+                }
 
-                    setSelectedDate(new Date(initial.dueDate));
-                })
-        }
+                setSelectedDate(new Date(initial.dueDate));
+            })
     }, [initial]);
 
 
@@ -218,7 +216,9 @@ export default function SelectCond(props: PolicyProps) {
 
 
     const handleSubmittedClose = () => {
+        props.handleClose();
         setSubmitted(false);
+        setOpen(false);
     }
 
 
@@ -394,7 +394,6 @@ export default function SelectCond(props: PolicyProps) {
     }
 
 
-
     const handleSubmit = async () => {
         setLoading(true);
 
@@ -403,15 +402,14 @@ export default function SelectCond(props: PolicyProps) {
             headers: {"Content-Type": 'application/json'}
         }).then((res) => {
             setOpen(false);
-            setState(initial_state);
-            setPolicy(initial_data);
+            //setState(initial_state);
+            //setPolicy(initial_data);
             setSubmitted(true);
             setLoading(false);
         })
 
         console.log( JSON.stringify(policy, null, 2) );
     }
-
 
 
     return (

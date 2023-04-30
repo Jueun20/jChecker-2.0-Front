@@ -33,7 +33,16 @@ export default function OracleDialog(props: DialogRawOracleProp) {
     const { open: isOpen } = props;
     
     const [open, setOpen] = useState(isOpen);
-    const [fields, setFields] = useState(["io-0"]);
+    const [fields, setFields] = useState<string[]>(() => {
+        if (props.initial.input !== null) {
+            const array = [];
+            for (let i = 0; i < props.initial.input.length; i ++) {
+                array.push(`io-${i}`);
+            }
+            return array;
+        }
+        return ["io-0"];
+    });
     const [outputData, setOutputData] = useState(props.initial.state ? props.initial.output : [""]);
     const [inputData, setInputData] = useState(props.initial.state ? props.initial.input : [""]);
     const [filePathData, setfilePathData] = useState(props.initial.state ? props.initial.filePath : [""]);

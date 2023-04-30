@@ -31,7 +31,16 @@ export default function OverridingDialog(props: DialogRawUtilProp) {
     const { open: isOpen } = props;
     
     const [open, setOpen] = useState(isOpen);
-    const [fields, setFields] = useState(["ovr-0"]);
+    const [fields, setFields] = useState<string[]>(() => {
+        if (props.initial.required !== null) {
+            const array = [];
+            for (let i = 0; i < props.initial.required.length; i ++) {
+                array.push(`cec-${i}`);
+            }
+            return array;
+        }
+        return ["ovr-0"];
+    });
     const [required, setRequired] = useState(props.initial.state ? props.initial.required : [""]);
     const [deduct, setDeduct] = useState(props.initial.state ? props.initial.deductPoint : 0);
     const [max_deduct, setMax_deduct] = useState(props.initial.state ? props.initial.maxDeduct : 0);

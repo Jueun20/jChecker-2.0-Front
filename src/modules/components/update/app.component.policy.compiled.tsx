@@ -10,7 +10,7 @@ import { Button,
     TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
-import {DialogRawCompileProp, DialogRawProp} from ".";
+import {DialogRawCompileProp} from ".";
 
 
 
@@ -52,13 +52,6 @@ export default function CompiledDialog(props: DialogRawCompileProp) {
 
 
     const handleClose = () => {
-        /*
-        setResCom({
-            state: false,
-            deductPoint : 0,
-            buildTool: false,
-        });
-        */
         props.onClose("compiled")
         setOpen(false);
     }

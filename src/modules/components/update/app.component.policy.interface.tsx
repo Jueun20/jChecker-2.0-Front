@@ -30,7 +30,16 @@ export default function InterfaceDialog(props: DialogRawInterfaceOrSuperClassPro
     const { open: isOpen } = props;
     
     const [open, setOpen] = useState(isOpen);
-    const [fields, setFields] = useState(["itf-0"]);
+    const [fields, setFields] = useState<string[]>(() => {
+        if (props.initial.inherit !== null) {
+            const array = [];
+            for (let i = 0; i < props.initial.inherit.length; i ++) {
+                array.push(`itf-${i}`);
+            }
+            return array;
+        }
+        return ["itf-0"];
+    });
     const [originClass, setOrigins] = useState(props.initial.state ? props.initial.origins : [""]);
     const [interfaces, setInterfaces] = useState(props.initial.state ? props.initial.inherit : [""]);
     const [deduct, setDeduct] = useState(props.initial.state ? props.initial.deductPoint : 0);
