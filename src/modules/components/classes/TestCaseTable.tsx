@@ -19,12 +19,16 @@ import { ClassroomOracle, RouteParamsProps } from ".";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
+        minWidth: 500,
         maxWidth: 500,
+        maxHeight: 600,
         [theme.breakpoints.up('md')]: {
+            minWidth: 800,
             maxWidth: 1200,
         },
         [theme.breakpoints.up('xl')]: {
-            maxWidth: 2000,
+            minWidth: 1200,
+            maxWidth: 1500,
         },
         marginTop: theme.spacing(3),
         overflowX: 'auto',
@@ -32,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     container: {
         maxHeight: 440,
         [theme.breakpoints.up('md')]: {
-            maxHeight: 580,
+            maxHeight: 500,
         }
     },
     hidden: {
@@ -127,8 +131,8 @@ export default function TestCaseTable(props: RouteComponentProps<RouteParamsProp
     useEffect(() => {
         if (classroom === initial) {
             const getTestCaseData = async () : Promise<ClassroomOracle[]> => {
-                // return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/token2.0/')
-                return await axios.get<ClassroomOracle[]>('/api/token2.0/')
+                return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/token2.0/')
+                // return await axios.get<ClassroomOracle[]>('/api/token2.0/')
                     .then((response) =>{
                         return response.data
                     });
@@ -158,16 +162,17 @@ export default function TestCaseTable(props: RouteComponentProps<RouteParamsProp
                             {classroom.oracle.input
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
+                                    const rowIndex = page * rowsPerPage + index;
                                     return (
                                         <StyledTableRow key={index + 'v'}>
                                             <TableCell key={index + 'in'} align="left">
                                                 {row}
                                             </TableCell>
                                             <TableCell key={index + 'out'} align="left">
-                                                {classroom.oracle.output[index]}
+                                                {classroom.oracle.output[rowIndex]}
                                             </TableCell>
                                             <TableCell key={index + 'check'} align="center">
-                                                {classroom.oracle.checksum[index]}
+                                                {classroom.oracle.checksum[rowIndex]}
                                             </TableCell>
                                         </StyledTableRow>
                                     );
