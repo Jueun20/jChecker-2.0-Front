@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Typographic from './Typographic';
 import { useTranslation } from "react-i18next";
 import ClassDialog from "./policy/app.component.policy.classes";
+import MethodDialog from "./policy/app.component.policy.methods";
 import CompiledDialog from "./policy/app.component.policy.compiled";
 import CountDialog from "./policy/app.component.policy.count";
 import StructureDialog from "./policy/app.component.policy.custom.ds";
@@ -50,12 +51,16 @@ export default function SelectCond(props: PolicyProps) {
         className: props.className,
         instructor: props.instructor,
         feedback: props.isDirect,
+        feedbackLevel: 1,
         token: props.token,
         itoken: props.itoken,
         count: false,
         compiled: false,
         oracle: false,
         classes: false,
+
+        methods: false,
+
         packages: false,
         custexc: false,
         custstr: false,
@@ -82,6 +87,9 @@ export default function SelectCond(props: PolicyProps) {
         compiled: { state: false } as Object,
         oracle: { state: false } as Object,
         classes : { state: false } as Object,
+
+        methods: { state: false } as Object,
+
         packages: { state: false } as Object,
         customException: { state: false } as Object,
         customStructure: { state: false } as Object,
@@ -172,7 +180,7 @@ export default function SelectCond(props: PolicyProps) {
     const handleSubmit = async () => {
         setLoading(true);
 
-        // await axios.post("http://isel.lifove.net/api/token2.0/save", JSON.stringify(policy, null, 2), {
+        //await axios.post("http://isel.lifove.net/api/token2.0/save", JSON.stringify(policy, null, 2), {
         axios.post("/api/token2.0/save", JSON.stringify(policy, null, 2), {
             headers: {"Content-Type": 'application/json'}
         }).then((res) => {
@@ -277,6 +285,14 @@ export default function SelectCond(props: PolicyProps) {
                                         name="classes" />}
                             label="Classes"
                         />
+
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={state.methods}
+                                          onChange={handleChange}
+                                          name="methods" />}
+                            label="Methods"
+                        />
                         
                         <FormControlLabel
                             control={
@@ -372,6 +388,9 @@ export default function SelectCond(props: PolicyProps) {
                 
                 {state.classes &&
                     <ClassDialog open={state.classes} onCreate={handleCreate} keepMounted /> }
+
+                {state.methods &&
+                    <MethodDialog open={state.methods} onCreate={handleCreate} keepMounted /> }
 
                 {state.packages &&
                     <PackageDialog open={state.packages} onCreate={handleCreate} keepMounted />}

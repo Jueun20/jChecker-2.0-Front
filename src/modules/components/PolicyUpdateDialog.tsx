@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import Typographic from './Typographic';
 import { useTranslation } from "react-i18next";
 import ClassDialog from "./update/app.component.policy.classes";
+import MethodDialog from "./update/app.component.policy.methods";
 import CompiledDialog from "./update/app.component.policy.compiled";
 import CountDialog from "./update/app.component.policy.count";
 import StructureDialog from "./update/app.component.policy.custom.ds";
@@ -68,6 +69,7 @@ export default function SelectCond(props: PolicyProps) {
         compiled: false,
         oracle: false,
         classes: false,
+        methods: false,
         packages: false,
         custexc: false,
         custstr: false,
@@ -111,9 +113,17 @@ export default function SelectCond(props: PolicyProps) {
             deductPoint: 0,
             maxDeduct: 0,
         },
-        classes : {
+        classes: {
             state: false,
             required: [""],
+            deductPoint: 0,
+            maxDeduct: 0,
+        },
+        methods: {
+            state: false,
+            required: [""],
+            count: [0],
+            classes: [""],
             deductPoint: 0,
             maxDeduct: 0,
         },
@@ -326,6 +336,25 @@ export default function SelectCond(props: PolicyProps) {
         );
     }
 
+    const handleMethodOnSubmit = (types: string, state: boolean, required: string[], count: number[], classes: string[], deductPoint: number, maxDeduct: number) => {
+        setPolicy(
+            produce(draft => {
+                draft[types].state = state;
+                draft[types].required = required;
+                draft[types].count = count;
+                draft[types].classes = classes;
+                draft[types].deductPoint = deductPoint;
+                draft[types].maxDeduct = maxDeduct;
+            })
+        );
+
+        setState(
+            produce(draft => {
+                draft[types] = false;
+            })
+        );
+    }
+
     const handleUtilsOnSubmit = (types: string, state: boolean, required: [], deductPoint: number, maxDeduct: number) => {
         setPolicy(
             produce(draft => {
@@ -402,8 +431,6 @@ export default function SelectCond(props: PolicyProps) {
             headers: {"Content-Type": 'application/json'}
         }).then((res) => {
             setOpen(false);
-            //setState(initial_state);
-            //setPolicy(initial_data);
             setSubmitted(true);
             setLoading(false);
         })
@@ -531,6 +558,25 @@ export default function SelectCond(props: PolicyProps) {
                                     size="small"
                                     style={{ fontSize: "12px", width: "fit-content", textTransform: "none" }}
                                     onClick={() => handleEdit("classes")}
+                                    className={classes.edit}
+                                >
+                                    ✏️ Edit
+                                </Button>
+                            </Grid>
+                            <Grid container direction="row">
+                                <Grid item>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox checked={policy.methods.state}
+                                                      name="methods" />}
+                                        label="Methods"
+                                    />
+                                </Grid>
+                                <Button
+                                    variant="text"
+                                    size="small"
+                                    style={{ fontSize: "12px", width: "fit-content", textTransform: "none" }}
+                                    onClick={() => handleEdit("methods")}
                                     className={classes.edit}
                                 >
                                     ✏️ Edit
@@ -749,6 +795,9 @@ export default function SelectCond(props: PolicyProps) {
 
                     {state.classes &&
                         <ClassDialog open={state.classes} onCreate={handleCreate} onClose={handleOnClose} onSubmit={handleUtilsOnSubmit} initial={policy.classes} keepMounted /> }
+
+                    {state.methods &&
+                        <MethodDialog open={state.methods} onCreate={handleCreate} onClose={handleOnClose} onSubmit={handleMethodOnSubmit} initial={policy.methods} keepMounted /> }
 
                     {state.packages &&
                         <PackageDialog open={state.packages} onCreate={handleCreate} onClose={handleOnClose} onSubmit={handleUtilsOnSubmit} initial={policy.packages} keepMounted /> }

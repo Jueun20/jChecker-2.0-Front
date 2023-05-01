@@ -34,6 +34,15 @@ export interface DialogRawOracleProp {
     initial: DialogOracleProp;
 }
 
+export interface DialogRawMethodProp {
+    keepMounted: boolean;
+    open: boolean;
+    onCreate: Function;
+    onClose: Function;
+    onSubmit: Function;
+    initial: DialogMethodProp;
+}
+
 export interface DialogRawUtilProp {
     keepMounted: boolean;
     open: boolean;
@@ -83,6 +92,15 @@ export interface DialogOracleProp {
     output: string[],
     checksum: string[],
     filePath: string[],
+    deductPoint: number,
+    maxDeduct: number,
+}
+
+export interface DialogMethodsProp {
+    state: boolean,
+    required: string[],
+    count: number[],
+    classes: string[],
     deductPoint: number,
     maxDeduct: number,
 }

@@ -72,7 +72,7 @@
 
     "policy.point": "Total score",
     "policy.level": "Level of feedback",
-    "policy.count.methods": "Mininum number of methods",
+    "policy.count.methods": "Minimum number of methods",
     "policy.count.fields": "Minimum number of fields",
     "policy.count.enhance": "Minimum number of Enhanced for statement",
     "policy.count.1": "Minimum number of details",
@@ -111,6 +111,11 @@
     "policy.super.2": "Determine whether the superclass is inherited properly.",
     "policy.thread.1": "Thread Settings",
     "policy.thread.2": "Determine whether the thread class was inherited and actually used.",
+    "policy.ms.1": "Required Methods",
+    "policy.ms.2": "Is there a required method?",
+    "policy.ms.method": "Method name",
+    "policy.ms.count": "Minimum number of usages",
+    "policy.ms.class": "Class name of method",
 
     "begin.getting start": "Let's Get Started!",
     "begin.enter token": "Enter the authentication token",

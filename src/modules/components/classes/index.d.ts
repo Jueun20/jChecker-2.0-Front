@@ -157,6 +157,14 @@ export interface GradingPolicyProps {
         deductPoint: number,
         maxDeduct: number,
     },
+    methods: {
+        state: boolean,
+        required: string[],
+        count: number[],
+        classes: string[],
+        deductPoint: number,
+        maxDeduct: number,
+    },
     customException: {
         state: boolean,
         required: string[],
