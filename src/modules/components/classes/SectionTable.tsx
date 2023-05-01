@@ -1,7 +1,10 @@
-import { TableContainer,
+import {
+    TableContainer,
     Table,
     TableRow,
     TableBody,
+    Tabs,
+    Tab,
     TableCell,
     Paper,
     TableHead,
@@ -10,20 +13,29 @@ import { TableContainer,
     withStyles,
     Theme,
     createStyles,
-    TableSortLabel} from "@material-ui/core";
+    TableSortLabel,
+    Grid,
+    Button
+} from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ClassroomInstTokenProps, EnhancedTableProps, GradingResultProps, Order, ResultKeyProps } from ".";
+import PlaylistAddCheckRoundedIcon from "@material-ui/icons/PlaylistAddCheckRounded";
+import Typographic from "../Typographic";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
+        minWidth: 500,
         maxWidth: 500,
+        maxHeight: 600,
         [theme.breakpoints.up('md')]: {
+            minWidth: 1200,
             maxWidth: 1200,
         },
         [theme.breakpoints.up('xl')]: {
-            maxWidth: 2000,
+            minWidth: 1500,
+            maxWidth: 1500,
         },
         marginTop: theme.spacing(3),
         overflowX: 'auto',
@@ -31,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     container: {
         maxHeight: 440,
         [theme.breakpoints.up('md')]: {
-            maxHeight: 680,
+            maxHeight: 500,
         }
     },
     hidden: {
@@ -47,7 +59,35 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     head: {
         color: theme.palette.common.white,
-    }
+    },
+    tabs: {
+        backgroundColor: 'transparent',
+        color: 'white',
+        '& .MuiTab-root': {
+            backgroundColor: 'transparent',
+            minWidth: 'auto',
+            textTransform: 'none',
+            fontSize: 13,
+            fontWeight: 600,
+            padding: '6px 16px',
+            marginRight: 24,
+            '&:hover': {
+                color: '#1a73e8',
+                backgroundColor: '#e8f0fe',
+                opacity: 1,
+            },
+            '&.Mui-selected': {
+                color: '#1a73e8',
+                backgroundColor: 'transparent',
+            },
+        },
+    },
+    load: {
+        backgroundColor: '#81bdf4',
+        maxHeight: 18,
+        borderRadius: 30,
+        marginTop: theme.spacing(2),
+    },
 }));
 
 
@@ -189,6 +229,34 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     )
 }
 
+function EnhancedTableHeadForDiagram(props: EnhancedTableProps) {
+    const { order, onRequestSort, keyGroup } = props;
+
+    const createSortHandler = (property: keyof ResultKeyProps) => (event: React.MouseEvent<unknown>) => {
+        onRequestSort(event, property);
+    }
+
+    return (
+        <TableHead>
+            <TableRow>
+                <StyledTableCell key="stn" align="center" sortDirection={order} >
+                    <TableSortLabel
+                        active={true}
+                        direction={order}
+                        onClick={createSortHandler('studentNum')}
+                        style={{ color: "white" }}
+                    >
+                        Student Number
+                    </TableSortLabel>
+                </StyledTableCell>
+                <StyledTableCell key="link" align="center">
+                    Class Diagram
+                </StyledTableCell>
+            </TableRow>
+        </TableHead>
+    )
+}
+
 
 export default function SectionTable(props: ClassroomInstTokenProps) {
     const classes = useStyles();
@@ -198,6 +266,12 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [keyGroup, setKeyGroup] = useState<string[]>( [] );
     const [dataGroup, setDataGroup] = useState<GradingResultProps[]>( [] );
+
+    const [selectedTab, serSelectedTab] = useState(0);
+
+    const handleChangeTab = (event: unknown, newValue: number) => {
+        serSelectedTab(newValue);
+    }
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -219,19 +293,18 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataGroup.length - page * rowsPerPage);
 
+    const getGradingData = async () : Promise<GradingResultProps[]> => {
+        //return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade2.0/', {
+        return await axios.get<GradingResultProps[]>('/api/grade2.0/', {
+            params: {
+                itoken: props.itoken
+            },
+        }).then((response) => {
+            return response.data;
+        });
+    }
 
     useEffect(() => {
-        const getGradingData = async () : Promise<GradingResultProps[]> => {
-            // return await axios.get<GradingResultProps[]>('http://isel.lifove.net/api/grade2.0/', {
-            return await axios.get<GradingResultProps[]>('/api/grade2.0/', {
-                params: {
-                    itoken: props.itoken
-                },
-            }).then((response) => {
-                return response.data;
-            });
-        }
-
         getGradingData()
             .then((response) => {
                 var i = 0;
@@ -249,78 +322,165 @@ export default function SectionTable(props: ClassroomInstTokenProps) {
             })
     }, [props.itoken]);
 
+    const handleRefresh = () => {
+        getGradingData()
+            .then((response) => {
+                setDataGroup(response);
+            })
+    }
 
     return (
-        <Paper className={classes.root}>
-            <TableContainer component={Paper} className={classes.container}>
-                <Table stickyHeader>
-                    <EnhancedTableHead
-                        order={order}
-                        orderBy={orderBy}
-                        onRequestSort={handleRequestSort}
-                        keyGroup={keyGroup}
+        <div>
+            <Grid container justify="space-between" component="div">
+                <Grid item>
+                    <Tabs value={selectedTab} onChange={handleChangeTab} className={classes.tabs}>
+                        <Tab label="Grading Result" />
+                        <Tab label="Diagram Link" />
+                    </Tabs>
+                </Grid>
+                <Grid item>
+                    <Button
+                        id="refresh-btn"
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        onClick={handleRefresh}
+                        className={classes.load}
+                    >
+                        RELOAD
+                    </Button>
+                </Grid>
+            </Grid>
+
+            {selectedTab === 0 && (
+                <Paper className={classes.root}>
+                    <TableContainer component={Paper} className={classes.container}>
+                        <Table stickyHeader>
+                            <EnhancedTableHead
+                                order={order}
+                                orderBy={orderBy}
+                                onRequestSort={handleRequestSort}
+                                keyGroup={keyGroup}
+                            />
+                            <TableBody>
+                                {stableSort(dataGroup, getComparator(order, orderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row, index) => {
+                                        return (
+                                            <StyledTableRow key={index + `v`}>
+                                                <TableCell key={index + `stn`} align="right">
+                                                    <a href={'http://isel.lifove.net/jchecker2.0/files/' + row['className'].replace(" ", "-") + '/' + row['studentNum'] + '/' + row['gradingDate'].replace(/[- :]/g, "_") + '_' + row['studentNum'] + '.zip'} target="_blank">
+                                                        {row['studentNum']}
+                                                    </a>
+                                                </TableCell>
+                                                <TableCell key={index + `total`} align="right">
+                                                    {row.point}
+                                                </TableCell>
+                                                <TableCell key={index + `res`} align="right">
+                                                    {row.result}
+                                                </TableCell>
+                                                <TableCell key={index + `time`} align="right">
+                                                    {row.gradingDate}
+                                                </TableCell>
+                                                <TableCell key={index + `cname`} align="right">
+                                                    {row.className}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.oracle?.violationNumber.map((violation) => (
+                                                        violation + ", "
+                                                    ))}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.oracle?.checksumNumber.map((violation) => (
+                                                        violation + ", "
+                                                    ))}
+                                                </TableCell>
+                                                {keyGroup
+                                                    .filter((detail) => detail !== 'feedbackLevel')
+                                                    .map((detail, idx) => (
+                                                        <TableCell key={idx + 'each'} align="right">
+                                                            {detail === "classes" ?
+                                                                <a href={'https://app.diagrams.net/?lightbox=1&edit=_blank#Uhttp%3A%2F%2Fisel.lifove.net%2Fjchecker2.0%2Ffiles%2F' + row['className'].replace(" ", "-") + '%2F' + row['studentNum'] + '%2Fdrawio.xml'} target="_blank">
+                                                                    {row[detail] ? -row[detail]!.deductedPoint : "❌"}
+                                                                </a>
+                                                                : row[detail] ? -row[detail].deductedPoint : "❌"
+                                                            }
+                                                        </TableCell>
+                                                    ))}
+
+                                            </StyledTableRow>
+                                        );
+                                    })
+                                }
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 53 * emptyRows}}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={dataGroup.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
-                    <TableBody>
-                        {stableSort(dataGroup, getComparator(order, orderBy))
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                return (
-                                    <StyledTableRow key={index + `v`}>
-                                        <TableCell key={index + `stn`} align="right">
-                                            {row['studentNum']}
-                                        </TableCell>
-                                        <TableCell key={index + `total`} align="right">
-                                            {row.point}
-                                        </TableCell>
-                                        <TableCell key={index + `res`} align="right">
-                                            {row.result}
-                                        </TableCell>
-                                        <TableCell key={index + `time`} align="right">
-                                            {row.gradingDate}
-                                        </TableCell>
-                                        <TableCell key={index + `cname`} align="right">
-                                            {row.className}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.oracle?.violationNumber.map((violation) => (
-                                                violation + ", "
-                                            ))}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.oracle?.checksumNumber.map((violation) => (
-                                                violation + ", "
-                                            ))}
-                                        </TableCell>
-                                        {keyGroup
-                                            .filter((detail) => detail !== 'feedbackLevel')
-                                            .map((detail, idx) => (
-                                            <TableCell key={idx + 'each'} align="right">
-                                                {-row[detail].deductedPoint}
-                                            </TableCell>
-                                        ))}
+                </Paper>
+            )}
+            {selectedTab === 1 && (
+                <Paper className={classes.root}>
+                    <TableContainer component={Paper} className={classes.container}>
+                        <Table stickyHeader>
+                            <EnhancedTableHeadForDiagram
+                                order={order}
+                                orderBy={orderBy}
+                                onRequestSort={handleRequestSort}
+                                keyGroup={keyGroup}
+                            />
+                            <TableBody>
+                                {stableSort(dataGroup, getComparator(order, orderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row, index) => {
+                                        return (
+                                            <StyledTableRow key={index + `v`}>
+                                                <TableCell key={index + `stn`} align="center">
+                                                    {row['studentNum']}
+                                                </TableCell>
+                                                <TableCell key={index + `link`} align="center">
+                                                    <a href={'https://app.diagrams.net/?lightbox=1&edit=_blank#Uhttp%3A%2F%2Fisel.lifove.net%2Fjchecker2.0%2Ffiles%2F' + row['className'].replace(" ", "-") + '%2F' + row['studentNum'] + '%2Fdrawio.xml'} target="_blank">
+                                                        {row['className']}-{row['studentNum']}-drawio.xml
+                                                    </a>
+                                                </TableCell>
+                                            </StyledTableRow>
+                                        );
+                                    })
+                                }
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 53 * emptyRows}}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
 
-                                    </StyledTableRow>
-                                );
-                            })
-                        }
-                        {emptyRows > 0 && (
-                            <TableRow style={{ height: 53 * emptyRows}}>
-                                <TableCell colSpan={6} />
-                            </TableRow>
-                        )}
-
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={dataGroup.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-        </Paper>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={dataGroup.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                </Paper>
+            )}
+        </div>
     );
+
 }

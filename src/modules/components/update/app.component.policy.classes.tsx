@@ -31,8 +31,8 @@ export default function ClassDialog(props: DialogRawUtilProp) {
     
     const [open, setOpen] = useState(isOpen);
     const [fields, setFields] = useState<string[]>(() => {
-        const array = [];
         if (props.initial.required !== null) {
+            const array = [];
             for (let i = 0; i < props.initial.required.length; i ++) {
                 array.push('cs-${i}');
             }
