@@ -73,6 +73,9 @@ export interface GradingResultProps {
     classes: {
         deductedPoint: number,
     } | undefined,
+    methods: {
+        deductedPoint: number,
+    } | undefined,
     packages: {
         deductedPoint: number,
     } | undefined,

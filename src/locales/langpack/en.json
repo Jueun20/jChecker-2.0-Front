@@ -126,6 +126,7 @@
     "result.score.delay": "The score was deducted after the deadline (-1 per day).",
     "result.score.count": "The number of fields, methods or (if required) advanced for statements is insufficient.",
     "result.score.class": "Class : No specified classes.",
+    "result.score.method": "Method : The method does not exist or has not been used.",
     "result.score.compile": "Compilation : There is a problem with the compilation.",
     "result.score.testcase": "Test case : Wrong. Make test cases yourself and check them again.",
     "result.score.testcase.failed": "Failed test case #",

@@ -104,6 +104,7 @@ function ResultDetail (props : RouteComponentProps<RouteParamsProps>) {
             compiled: results.compile !== undefined ? (results.compile.deductedPoint === 0 ? true : false) : undefined,
             inputs: results.oracle !== undefined ? (results.oracle.deductedPoint === 0 ? true : false) : undefined,
             classes: results.classes !== undefined ? (results.classes.deductedPoint === 0 ? true : false) : undefined,
+            methods: results.methods !== undefined ? (results.methods.deductedPoint === 0 ? true : false) : undefined,
             packages: results.packages !== undefined ? (results.packages.deductedPoint === 0 ? true : false) : undefined,
             custexc: results.customException !== undefined ? (results.customException.deductedPoint === 0 ? true : false) : undefined,
             custstr: results.customStructure !== undefined ? (results.customStructure.deductedPoint === 0 ? true : false) : undefined,
@@ -170,6 +171,12 @@ function ResultDetail (props : RouteComponentProps<RouteParamsProps>) {
                             </Typographic>
                         }
 
+                        {existsInPolicy.feedback && existsInPolicy.methods === false &&
+                            <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
+                                <PlaylistAddCheckRoundedIcon color="error" /> &nbsp;
+                                (-{results.methods!.deductedPoint}) {t('result.score.method')}
+                            </Typographic>
+                        }
 
                         {existsInPolicy.feedback && existsInPolicy.compiled === false &&
                             <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
@@ -325,6 +332,14 @@ function ResultDetail (props : RouteComponentProps<RouteParamsProps>) {
                             <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
                                 <PlaylistAddCheckRoundedIcon color="error" /> &nbsp;
                                 (-{results.classes!.deductedPoint}) {t('result.score.class')}
+                            </Typographic>
+                        }
+
+
+                        {existsInPolicy.feedback && existsInPolicy.methods === false &&
+                            <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
+                                <PlaylistAddCheckRoundedIcon color="error" /> &nbsp;
+                                (-{results.methods!.deductedPoint}) {t('result.score.method')}
                             </Typographic>
                         }
 
@@ -491,6 +506,14 @@ function ResultDetail (props : RouteComponentProps<RouteParamsProps>) {
                             <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
                                 <PlaylistAddCheckRoundedIcon color="error" /> &nbsp;
                                 (-{results.classes!.deductedPoint}) {t('result.score.class')}
+                            </Typographic>
+                        }
+
+
+                        {existsInPolicy.feedback && existsInPolicy.methods === false &&
+                            <Typographic color="inherit" align="left" variant="subtitle1" className={classesStyle.h6}>
+                                <PlaylistAddCheckRoundedIcon color="error" /> &nbsp;
+                                (-{results.methods!.deductedPoint}) {t('result.score.method')}
                             </Typographic>
                         }
 
