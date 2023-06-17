@@ -11,7 +11,6 @@ import { ClassroomInstProps, RouteParamsProps } from ".";
 import SectionTable from "./SectionTable";
 import PolicyUpdateDialog from "../PolicyUpdateDialog";
 import Typography from "@material-ui/core/Typography";
-import {useTranslation} from "react-i18next";
 
 
 
@@ -109,8 +108,7 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
     useEffect(() => {
         if (classroom === initial) {
             const currentClassroomState = async (): Promise<ClassroomInstProps[]> => {
-                // return await axios.get<ClassroomInstProps[]>('http://isel.lifove.net/api/token2.0/')
-                return await axios.get<ClassroomInstProps[]>('/api/token2.0/')
+                return await axios.get<ClassroomInstProps[]>('http://isel.lifove.net/api/token2.0/')
                 .then((response) => {
                     return response.data
                 });
@@ -119,9 +117,9 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
 
             currentClassroomState()
             .then(response => {
-                setClassroom(response.find(element => element.itoken === props.match.params.token) || initial);
-                setLevel(response.find(element => element.itoken === props.match.params.token)?.feedbackLevel || initial_feedbackLevel);
-                if (response.find(element => element.itoken === props.match.params.token) === undefined) {
+                setClassroom(response.find(element => element.itoken === props.location.state) || initial);
+                setLevel(response.find(element => element.itoken === props.location.state)?.feedbackLevel || initial_feedbackLevel);
+                if (response.find(element => element.itoken === props.location.state) === undefined) {
                     props.history.push('/jchecker2.0');
                     alert("클래스가 없습니다.😅");
                 }
@@ -140,8 +138,7 @@ function ClassForInst (props: RouteComponentProps<RouteParamsProps>) {
             feedbackLevel: level,
         };
 
-        // axios.post ("http://isel.lifove.net/api/token2.0/update/level", updatedFields, {
-        await axios.post("/api/token2.0/update/level", updatedFields, {
+        axios.post ("http://isel.lifove.net/api/token2.0/update/level", updatedFields, {
             params: {
                 token: classroom.token
             },

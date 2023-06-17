@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/jchecker2.0/classes/:token/success" component={ResultProcess} />
         <Route exact path="/jchecker2.0/classes/:token/success/details" component={ResultDetail} />
         <Route exact path="/jchecker2.0/instructors" component={EntranceInstructor} />
-        <Route exact path="/jchecker2.0/instructors/:token" component={SectionClassForInst} />
+        <Route exact path="/jchecker2.0/instructors/results" component={SectionClassForInst} />
         <Route exact path="/jchecker2.0/error" component={SectionError} />
 
         <Route exact path="/jchecker2.0/tests" component={EntranceTest} />
