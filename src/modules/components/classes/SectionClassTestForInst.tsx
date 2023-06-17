@@ -102,8 +102,7 @@ function ClassTestCaseForInst (props: RouteComponentProps<RouteParamsProps>) {
     useEffect(() => {
         if (classroom === initial) {
             const currentClassroomState = async (): Promise<ClassroomOracle[]> => {
-                // return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/token2.0/')
-                return await axios.get<ClassroomOracle[]>('/api/token2.0/')
+                return await axios.get<ClassroomOracle[]>('http://isel.lifove.net/api/token2.0/')
                     .then((response) => {
                         return response.data
                     });

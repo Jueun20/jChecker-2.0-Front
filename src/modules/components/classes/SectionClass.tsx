@@ -1,4 +1,4 @@
-import { AppBar, Link, makeStyles, TextField, Theme } from "@material-ui/core";
+import { AppBar, Link, makeStyles, TextField, Theme, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router"
 import WithRoot from '../../root';
@@ -93,15 +93,22 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
         className: "",
         instructor: "",
         createDate: "",
+        feedbackLevel: 0,
     };
     const [classroom, setClassroom] = useState(initial);
     const [studentID, setStudentID] = useState("");
+    const [studentEmail, setStudentEmail] = useState("");
     const [valid, setValid] = useState(false);
     
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStudentID(e.target.value);
+    }
+
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStudentEmail(e.target.value);
     }
 
     
@@ -120,8 +127,7 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
     useEffect(() => {
         if (classroom === initial) {
             const currentClassroomState = async (): Promise<ClassroomProps[]> => {
-                // return await axios.get<ClassroomProps[]>('http://isel.lifove.net/api/token2.0/')
-                return await axios.get<ClassroomProps[]>('/api/token2.0/')
+                return await axios.get<ClassroomProps[]>('http://isel.lifove.net/api/token2.0/')
                 .then((response) => {
                     return response.data
                 });
@@ -171,17 +177,52 @@ function SectionClass(props: RouteComponentProps<RouteParamsProps>) {
                     opened by <b>{classroom.instructor}</b> on {classroom.createDate}
                 </Typographic>
 
-                <TextField 
-                    value={studentID} 
-                    onChange={handleChange} 
-                    label={t('studentNum')} 
-                    variant="outlined"
-                    style={{ margin: 8, borderColor: "white", borderRadius: 4, backgroundColor: "white"}}
-                    placeholder={t('studentNum.placeholder')} 
-                    margin="normal" 
-                />
+                {classroom.feedbackLevel === 3 &&
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <TextField
+                                value={studentID}
+                                onChange={handleChange}
+                                label={t('studentNum')}
+                                variant="outlined"
+                                style={{ margin: 8, borderColor: "white", borderRadius: 4, backgroundColor: "white"}}
+                                placeholder={t('studentNum.placeholder')}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                value={studentEmail}
+                                onChange={handleEmailChange}
+                                label={t('studentEmail')}
+                                variant="outlined"
+                                style={{ width: 230, margin: 8, borderColor: "white", borderRadius: 4, backgroundColor: "white"}}
+                                placeholder={t('studentEmail.placeholder')}
+                                margin="normal"
+                            />
+                        </Grid>
+                    </Grid>
+                }
+
+                {classroom.feedbackLevel !== 3 &&
+                    <TextField
+                        value={studentID}
+                        onChange={handleChange}
+                        label={t('studentNum')}
+                        variant="outlined"
+                        style={{ margin: 8, borderColor: "white", borderRadius: 4, backgroundColor: "white"}}
+                        placeholder={t('studentNum.placeholder')}
+                        margin="normal"
+                    />
+                }
+
                 {valid &&
-                    <FileTransfer name={classroom.token} id={studentID} onCreate={handleCreate} />
+                    <FileTransfer name={classroom.token} feedbackLevel={classroom.feedbackLevel} id={studentID} email={studentEmail} onCreate={handleCreate} />
                 }
             </SectionLayout>
             <AppFooter />
