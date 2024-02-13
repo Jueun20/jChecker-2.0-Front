@@ -1,6 +1,6 @@
 # jChecker 2.0 Front-end
 
-repository for Front-end of _jChecker 2.0_
+Repository for Front-end of _jChecker 2.0_
 
 ## 👋 소개
 jChecker 2.0 시스템의 웹 브라우저 <br>
